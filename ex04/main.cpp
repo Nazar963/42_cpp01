@@ -4,43 +4,38 @@
 
 int	main(int ac, char **av)
 {
-	int	i = 0;
-	int	j = 0;
-	int	y = 0;
-	int	start = 0;
-	int	replace = 0;
-	std::string	result;
+	//! create and open a file that is the same as av[1] but end with .replace
+	std::string	outfile_name = std::string(av[1]);
+	size_t index = outfile_name.find('.');
+	outfile_name.erase(index, (outfile_name.length() - index));
+	outfile_name += ".replace";
+	//! -------------------------------------------------------------------------- */
+
+	std::string	to_replace = av[2];
+	std::string	replace_with = av[3];
+	size_t	pos = 0;
 
 	if (ac == 4)
 	{
-		std::ifstream	file(av[1]);
+		std::ifstream	infile(av[1]);
+		std::ofstream	outfile(outfile_name.c_str());
 
-		if (file.is_open())
+		if (infile.is_open() && outfile.is_open())
 		{
 			std::string	line;
-			while (std::getline(file, line))
+			while (std::getline(infile, line))
 			{
-				while (line[i])
+				pos = 0;
+				while ((pos = line.find(to_replace, pos)) != std::string::npos)
 				{
-					if (line[i] == av[2][y])
-					{
-						start = i;
-						while (line[i] == av[2][y])
-						{
-							if (av[2][y] == '\0')
-							{
-								while (av[3][x])
-								result[j] = 
-							}
-							i++;
-							y++;
-						}
-					}
-					result[j] = line[i];
+					line.erase(pos, to_replace.length());
+					line.insert(pos, replace_with);
+					pos += replace_with.length();
 				}
-				std::cout << line << std::endl;
+				outfile << line << std::endl;
 			}
-			file.close();
+			infile.close();
+			outfile.close();
 		}
 	}
 	else
