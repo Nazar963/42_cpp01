@@ -38,7 +38,7 @@ struct	FunctionMapping
 
 void Harl::complain(std::string level)
 {
-	int i;
+	int	i = 0;
 
 	FunctionMapping mappings[] =
 	{
@@ -48,14 +48,11 @@ void Harl::complain(std::string level)
 		{"ERROR", &Harl::error},
 	};
 
-	if (level == "DEBUG")
-		i = 0;
-	else if (level == "INFO")
-		i = 1;
-	else if (level == "WARNING")
-		i = 2;
-	else if (level == "ERROR")
-		i = 3;
+	for (i = 0; i < 4; i++)
+	{
+		if (mappings[i].name == level)
+			break ;
+	}
 
 	switch (i)
 	{

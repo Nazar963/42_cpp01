@@ -11,5 +11,5 @@ int main()
 	for(int i = 0; i < 5; i++)
 		loco[i].announce();
 	randomChump(name);
-	delete [] loco;
+	delete[] loco;
 }

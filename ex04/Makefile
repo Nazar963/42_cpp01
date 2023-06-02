@@ -1,7 +1,10 @@
 CC = g++ -Wall -Wextra -Werror -std=c++98
 CFILES = main.cpp
+EXE = replace_me
 
-all:
+all: $(EXE)
+
+$(EXE):
 	$(CC) $(CFILES) -o replace_me
 
 clean:
